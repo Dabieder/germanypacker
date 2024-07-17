@@ -15,10 +15,13 @@ body {
     margin-bottom: 10px;
 }
 
-path {
-    fill: grey;
-}
 
 #bounding-box-info {
     margin-top: 10px;
+}
+
+path {
+    fill: gray;
+    stroke: #000;
+    stroke-width: 2;
 }

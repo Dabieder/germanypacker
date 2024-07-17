@@ -7,27 +7,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const rotationStep = 15; // degrees
     const fillDefault = '#808080';
     const fillOverlap = '#FF0000';
+    const fillSelected = '#0000FF';
     let selectedPath = null;
+    let lastBoundingBox = null;
 
     paths.forEach(path => {
         path.draggable();
         path.on('dragmove', checkOverlap);
         path.on('click', function () {
+            if (selectedPath) {
+                selectedPath.attr({ fill: fillDefault }); // Reset previous selected path color
+            }
             selectedPath = this;
+            selectedPath.attr({ fill: fillSelected }); // Set new selected path color
+            checkOverlap();
         });
     });
 
     function checkOverlap() {
-        paths.forEach(p => p.fill(fillDefault)); // Reset fill color
+        // paths.forEach(p => p.fill(fillDefault)); // Reset fill color
 
-        paths.forEach((path1, index1) => {
-            paths.forEach((path2, index2) => {
-                if (index1 !== index2 && areBoundingBoxesIntersecting(path1.bbox(), path2.bbox())) {
-                    path1.fill(fillOverlap);
-                    path2.fill(fillOverlap);
-                }
-            });
-        });
+        // paths.forEach((path1, index1) => {
+        //     paths.forEach((path2, index2) => {
+        //         if (index1 !== index2 && areBoundingBoxesIntersecting(path1.bbox(), path2.bbox())) {
+        //             path1.fill(fillOverlap);
+        //             path2.fill(fillOverlap);
+        //         }
+        //     });
+        // });
     }
 
     function areBoundingBoxesIntersecting(bbox1, bbox2) {
@@ -49,8 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById('calculate-button').addEventListener('click', () => {
+        if (lastBoundingBox) {
+            lastBoundingBox.remove();
+        }
         const bbox = svgElement.bbox();
-        draw.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).fill('none').stroke({ width: 2, color: '#000' });
-        document.getElementById('bounding-box-info').innerText = `Bounding Box Area: ${bbox.width * bbox.height}`;
+        lastBoundingBox = svgElement.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).fill('none').stroke({ width: 2, color: '#ff4f67' });
+         
+        document.getElementById('bounding-box-info').innerText = `Bounding Box Fläche: ${Math.round(bbox.width * bbox.height) / 100}`;
     });
 });
