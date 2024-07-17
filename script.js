@@ -56,9 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    document.getElementById('calculate-button').addEventListener('click', () => {
-        calcAndDisplayArea();
-    });
 
     function calcAndDisplayArea() {
         if (lastBoundingBox) {
