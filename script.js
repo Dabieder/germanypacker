@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function checkOverlap() {
+        calcAndDisplayArea();
         // paths.forEach(p => p.fill(fillDefault)); // Reset fill color
 
         // paths.forEach((path1, index1) => {
@@ -56,6 +57,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.getElementById('calculate-button').addEventListener('click', () => {
+        calcAndDisplayArea();
+    });
+
+    function calcAndDisplayArea() {
         if (lastBoundingBox) {
             lastBoundingBox.remove();
         }
@@ -63,5 +68,5 @@ document.addEventListener("DOMContentLoaded", () => {
         lastBoundingBox = svgElement.rect(bbox.width, bbox.height).move(bbox.x, bbox.y).fill('none').stroke({ width: 2, color: '#ff4f67' });
          
         document.getElementById('bounding-box-info').innerText = `Bounding Box Fläche: ${Math.round(bbox.width * bbox.height) / 100}`;
-    });
+    }
 });
