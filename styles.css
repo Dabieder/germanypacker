@@ -1,0 +1,24 @@
+/* styles.css */
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+#svg-container {
+    border: 1px solid #000;
+    margin-bottom: 10px;
+}
+
+path {
+    fill: grey;
+}
+
+#bounding-box-info {
+    margin-top: 10px;
+}
